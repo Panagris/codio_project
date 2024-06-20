@@ -1,10 +1,15 @@
 # Develop complex shortcuts for a Spotify user
 # Example: shortcut to play a song from the Liked Songs playlist
-import spotipy
-from spotipy.oauth2 import SpotifyOAuth
+# import spotipy
+# from spotipy.oauth2 import SpotifyOAuth
+
+# use source ~/.bashrc to load environment variables
 import requests
 import json
 import os
+import pandas as pd
+import sqlalchemy as db
+
 '''
 scope = "user-library-read"
 CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
@@ -50,6 +55,18 @@ album_data = artist_albums.json()
 
 # print(artist_data)
 # Print out all the album releases made by the artist.
+'''
 for i in range(len(album_data['items'])):
   print(album_data['items'][i]['name'])
+'''
 
+# Create an engine object to make a path for a database.
+engine = db.create_engine('sqlite:///artist_info.db')
+# Create a data frame
+df = pd.DataFrame.from_dict(artist_data)
+
+df.to_sql('artist', con=engine, if_exists='replace', index=False)
+
+with engine.connect() as connection:
+   query_result = connection.execute(db.text("SELECT * FROM artist;")).fetchall()
+   print(pd.DataFrame(query_result))
