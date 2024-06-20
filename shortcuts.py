@@ -9,6 +9,7 @@ import json
 import os
 import pandas as pd
 import sqlalchemy as db
+from sqlalchemy.types import TEXT
 
 '''
 scope = "user-library-read"
@@ -36,6 +37,8 @@ auth_response = requests.post(AUTH_URL, {
 })
 
 auth_response_data = auth_response.json()
+# print(auth_response_data)
+
 
 access_token = auth_response_data['access_token']
 
@@ -53,19 +56,22 @@ artist_albums = requests.get(BASE_URL + 'artists/' + beyonce_id + '/albums', hea
 artist_data = artist.json()
 album_data = artist_albums.json()
 
-# print(artist_data)
 # Print out all the album releases made by the artist.
-'''
+
+# Unpack the JSON data into the form {field : array-like} to allow pandas
+# and SQL to work effectively.
+new_dict = {"Albums" : []}
+
 for i in range(len(album_data['items'])):
-  print(album_data['items'][i]['name'])
-'''
+  new_dict["Albums"].append(album_data['items'][i]['name'])
 
 # Create an engine object to make a path for a database.
 engine = db.create_engine('sqlite:///artist_info.db')
-# Create a data frame
-df = pd.DataFrame.from_dict(artist_data)
+# Create a data frame from the unpacked JSON data dictionary.
+df = pd.DataFrame.from_dict(new_dict)
 
-df.to_sql('artist', con=engine, if_exists='replace', index=False)
+# Convert the data frame to SQL.
+df.to_sql('artist', con=engine, if_exists='replace', index=False, dtype={"A":TEXT()})
 
 with engine.connect() as connection:
    query_result = connection.execute(db.text("SELECT * FROM artist;")).fetchall()
