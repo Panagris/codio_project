@@ -25,8 +25,8 @@ for idx, item in enumerate(results['items']):
     print(idx, track['artists'][0]['name'], " – ", track['name'])
 '''
 
-CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID') # '18b3ecc0df694ca7aa9a0127e07e3531'
-CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET') #'e284a47688ce45a6917e93b753c86b50'
+CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
+CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 
@@ -51,7 +51,8 @@ BASE_URL = 'https://api.spotify.com/v1/'
 beyonce_id = '6vWDO969PvNqNYHIOW5v0m'
 # r = requests.get(BASE_URL + 'audio-features/' + track_id, headers=headers)
 artist = requests.get(BASE_URL + 'artists/' + beyonce_id, headers=headers)
-artist_albums = requests.get(BASE_URL + 'artists/' + beyonce_id + '/albums', headers=headers)
+artist_albums = requests.get(BASE_URL + 'artists/' +
+                             beyonce_id + '/albums', headers=headers)
 
 artist_data = artist.json()
 album_data = artist_albums.json()
@@ -60,10 +61,10 @@ album_data = artist_albums.json()
 
 # Unpack the JSON data into the form {field : array-like} to allow pandas
 # and SQL to work effectively.
-new_dict = {"Albums" : []}
+new_dict = {"Albums": []}
 
 for i in range(len(album_data['items'])):
-  new_dict["Albums"].append(album_data['items'][i]['name'])
+    new_dict["Albums"].append(album_data['items'][i]['name'])
 
 # Create an engine object to make a path for a database.
 engine = db.create_engine('sqlite:///artist_info.db')
@@ -71,8 +72,10 @@ engine = db.create_engine('sqlite:///artist_info.db')
 df = pd.DataFrame.from_dict(new_dict)
 
 # Convert the data frame to SQL.
-df.to_sql('artist', con=engine, if_exists='replace', index=False, dtype={"A":TEXT()})
+df.to_sql('artist', con=engine, if_exists='replace', index=False,
+          dtype={"A": TEXT()})
 
 with engine.connect() as connection:
-   query_result = connection.execute(db.text("SELECT * FROM artist;")).fetchall()
-   print(pd.DataFrame(query_result))
+    query_result = connection.execute(db.text("SELECT * FROM artist;")
+                                      ).fetchall()
+    print(pd.DataFrame(query_result))
