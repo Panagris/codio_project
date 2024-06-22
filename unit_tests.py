@@ -11,5 +11,6 @@ class TestShortcuts(self, unittest.TestCase):
         self.assertEqual(type(make_dictionary_from_JSON({}, "Albums")), dict)
         # self.assertEqual(function2(2.1, 1.2), 3.3)
 
+
 if __name__ == '__main__':
     unittest.main()

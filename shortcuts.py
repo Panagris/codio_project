@@ -46,7 +46,7 @@ def make_dictionary_from_JSON(json_object, key_name: str) -> dict:
 
     if not json_object:
         return new_dict
-        
+
     for i in range(len(json_object['items'])):
         new_dict["Albums"].append(json_object['items'][i]['name'])
     return new_dict
