@@ -2,7 +2,7 @@ import unittest
 from shortcuts import issue_HTTP_request, make_dictionary_from_JSON
 
 
-class TestShortcuts(self, unittest.TestCase):
+class TestShortcuts(unittest.TestCase):
     def test_issue_HTTP_request(self):
         self.assertEqual(type(issue_HTTP_request()), dict)
         # self.assertEqual
