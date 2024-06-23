@@ -25,5 +25,10 @@ jobs:
              pip install pandas
              pip install sqlalchemy
 
+      - name: Debug Environment Variables
+        run: |
+          echo "SPOTIFY_CLIENT_SECRET: $SPOTIFY_CLIENT_SECRET"
+          echo "SPOTIFY_CLIENT_ID: $SPOTIFY_CLIENT_ID"
+
       - name: Test with unittest
         run: python3 -m unittest unit_tests.py
