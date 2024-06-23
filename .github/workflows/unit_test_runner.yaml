@@ -16,6 +16,10 @@ jobs:
         run: |
              python -m pip install --upgrade pip pytest
              pip install requests
+             pip install pandas
+             pip install sqlalchemy
+             pip install json
+             pip install os
 
       - name: Test with unittest
         run: python3 -m unittest unit_tests.py
