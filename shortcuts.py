@@ -1,5 +1,8 @@
 # Develop complex shortcuts for a Spotify user
-# Example: shortcut to play a song from the Liked Songs playlist
+# Example: Shortcut to toggle shuffle and add to liked songs
+# Particuarly when using a wireless headset such as AirPods or
+# Sony headphones.
+
 # import spotipy
 # from spotipy.oauth2 import SpotifyOAuth
 
