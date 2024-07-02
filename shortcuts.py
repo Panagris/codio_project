@@ -8,7 +8,6 @@
 
 # use source ~/.bashrc to load environment variables
 import requests
-import json
 import os
 import pandas as pd
 import sqlalchemy as db
