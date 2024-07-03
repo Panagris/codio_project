@@ -49,8 +49,8 @@ def register():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user:
-            flash(f'Error: Account already exists for {form.username.data}.')
-            return redirect(url_for('register'))  # if so - send to home page
+            flash(f'Error: Account already exists for {form.email.data}.')
+            return redirect(url_for('register'))
 
         user = User(username=form.username.data, email=form.email.data,
                     password=form.password.data)
