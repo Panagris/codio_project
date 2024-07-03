@@ -46,7 +46,7 @@ def home():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():  # checks if entries are valid
-        user = db.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
 
         if user:
             flash(f'Error: Account already exists for {form.username.data}.')
