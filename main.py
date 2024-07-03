@@ -46,6 +46,12 @@ def home():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():  # checks if entries are valid
+        user = db.query.filter_by(email=form.email.data).first()
+
+        if user:
+            flash(f'Error: Account already exists for {form.username.data}.')
+            return redirect(url_for('register'))  # if so - send to home page
+
         user = User(username=form.username.data, email=form.email.data,
                     password=form.password.data)
         db.session.add(user)
