@@ -10,10 +10,11 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
+  {% set name = 'SpotiCuts' %}
   <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
       <div class="container">
-        <a class="navbar-brand mr-4" href="/">Tutorlicious</a>
+        <a class="navbar-brand mr-4" href="/">{{ name }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,6 +22,8 @@
           <div class="navbar-nav mr-auto">
             <a class="nav-item nav-link" href="/">Home</a>
             <a class="nav-item nav-link" href="/register">Register</a>
+            <a class="nav-item nav-link" href="/">Learn About An Artist</a>
+            <a class="nav-item nav-link" href="/">Simplified Music Player</a>
           </div>
         </div>
       </div>
@@ -29,7 +32,7 @@
   <main role="main" class="container">
     <div class="row">
       <div class="col-md-8">
-        <h1>This shows up on every page</h1> 
+        <h3>This shows up on every page</h3> 
         {% with messages = get_flashed_messages() %}
           {% if messages %}
             <ul class=flashes>

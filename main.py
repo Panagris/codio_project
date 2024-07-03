@@ -39,7 +39,7 @@ such as home_page().
 @app.route("/")
 def home():
     return render_template('home.html', subtitle='Home Page',
-                           text='This is the home page')
+                           text=f'Welcome to SpotiCuts!')
 
 
 @app.route("/register", methods=['GET', 'POST'])
