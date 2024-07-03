@@ -37,7 +37,7 @@ such as home_page().
 
 
 @app.route("/")
-def hello_world():
+def home():
     return render_template('home.html', subtitle='Home Page',
                            text='This is the home page')
 
